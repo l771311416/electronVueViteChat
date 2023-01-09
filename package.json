@@ -1,0 +1,76 @@
+{
+    "name": "electronvueproject",
+    "private": true,
+    "version": "0.0.0",
+    "main": "output/build/main.js",
+    "author": "ZN",
+    "scripts": {
+        "dev": "vite",
+        "build": "npm-run-all build:vue build:tsc build:all",
+        "preview": "cross-env NODE_ENV=production electron ./output/build/main.js",
+        "start": "kill-port 3920 && concurrently -k \"vite\" \"wait-on tcp:3920 && npm-run-all watch\"",
+        "watch": "tsc-watch --noClear -p tsconfig.e.json --onSuccess \"npm-run-all start:ect\"",
+        "start:ect": "cross-env NODE_ENV=development electron ./output/build/main.js",
+        "build:vue": "vue-tsc --noEmit && vite build",
+        "build:tsc": "tsc -p tsconfig.e.json",
+        "build:all": "electron-builder --mac --windows",
+        "build:mac": "electron-builder --mac",
+        "build:win": "electron-builder --windows"
+    },
+    "dependencies": {
+        "@element-plus/icons-vue": "^2.0.10",
+        "@vueuse/electron": "^9.9.0",
+        "element-plus": "^2.2.27",
+        "tree-node-cli": "^1.6.0",
+        "vue": "^3.2.45",
+        "vue-router": "^4.1.6"
+    },
+    "devDependencies": {
+        "@types/vue-router": "^2.0.0",
+        "@vitejs/plugin-vue": "^4.0.0",
+        "autoprefixer": "^10.4.13",
+        "concurrently": "^7.6.0",
+        "cross-env": "^7.0.3",
+        "electron": "^22.0.0",
+        "electron-builder": "^23.6.0",
+        "kill-port": "^2.0.1",
+        "npm-run-all": "^4.1.5",
+        "postcss": "^8.4.20",
+        "tailwindcss": "^3.2.4",
+        "tsc-watch": "^6.0.0",
+        "typescript": "^4.9.3",
+        "unplugin-vue-components": "^0.22.12",
+        "vite": "^4.0.0",
+        "vue-tsc": "^1.0.11",
+        "wait-on": "^7.0.1"
+    },
+    "build": {
+        "appId": "com.lx000-website.electron-vue3-tpm-test",
+        "productName": "ZNNote",
+        "copyright": "Copyright © 2021 <your-name>",
+        "directories": {
+            "output": "output/app"
+        },
+        "win": {
+            "icon": "public/cccs.icns",
+            "target": [
+                "nsis",
+                "zip",
+                "7z"
+            ]
+        },
+        "files": [
+            "!node_modules",
+            "output/dist/**/*",
+            "output/build/**/*"
+        ],
+        "mac": {
+            "category": "public.app-category.utilities.test",
+            "icon": "public/cccs.icns"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true
+        }
+    }
+}

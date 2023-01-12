@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2022-12-28 14:44:59
- * @LastEditTime: 2023-01-05 11:55:30
+ * @LastEditTime: 2023-01-12 14:48:33
  * @LastEditors: 周楠
  */
 module.exports = {
@@ -84,6 +84,9 @@ module.exports = {
       margin: {
         '5px': '5px',
         '10px': '10px',
+        '14px': '14px',
+        '15px': '15px',
+
         '20px': '20px',
         '30px': '30px',
         '40px': '40px',
@@ -104,12 +107,18 @@ module.exports = {
         '190px': '190px',
         '200px': '200px',
       },
+      lineHeight:{
+        '10px':'10px',
+        '20px': '20px',
+        '30px': '30px',
+      },
       colors: {
         'ele-blue': '#409EFF',
         'ele-white': '#f8f8f8',
         'ele-black': '#333',
         'ele-gray': '#ebebeb',
         'ele-black-sider': '#2e2e2e',
+        'ele-gray-hight':'#cccccd'
       },
     },
   },

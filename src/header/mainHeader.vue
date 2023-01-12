@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2022-12-28 14:39:55
- * @LastEditTime: 2023-01-04 14:05:49
+ * @LastEditTime: 2023-01-09 18:11:16
  * @LastEditors: 周楠
 -->
 <template>
@@ -45,7 +45,7 @@ import {
 const devToolsOpen = ref(true) // 开发者工具开关
 // 窗口事件
 const navBar = (val: string) => {
-    console.log(window.ipc);
+    console.log(window.ipc, 'window.ipc');
 
     window.ipc.send('navBar', val)
 }

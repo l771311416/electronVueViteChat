@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2023-01-04 15:27:52
- * @LastEditTime: 2023-01-06 10:01:31
+ * @LastEditTime: 2023-01-13 09:49:39
  * @LastEditors: 周楠
  */
 import { createRouter, createWebHashHistory } from "vue-router"
@@ -11,6 +11,7 @@ import Collect from '../views/collect/collect.vue';
 import Contact from "../views/contact/contact.vue";
 import MyFile from "../views/myFile/myFile.vue";
 import Calendar from "../views/calendar/calendar.vue";
+import Meeting from '../views/calendar/Meeting.vue'
 import * as path from 'path';
 const routes = [
     {
@@ -36,7 +37,13 @@ const routes = [
     {
         path: '/calendar',
         name: "calendar",
-        component: Calendar
+        component: Calendar,
+
+    },
+    {
+        path: '/meeting',
+        name: "meeting",
+        component: Meeting
     },
     {
         path: '/collect',

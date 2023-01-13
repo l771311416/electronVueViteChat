@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:我的日历
  * @Date: 2023-01-06 09:57:53
- * @LastEditTime: 2023-01-12 17:05:54
+ * @LastEditTime: 2023-01-13 09:50:23
  * @LastEditors: 周楠
 -->
 <template>
@@ -77,11 +77,13 @@
 <script setup lang='ts'>
 import { DateType } from './calendar.d.ts'
 import { ref, reactive, unref } from "vue";
+import {useRouter} from 'vue-router'
 import { ClickOutside as vClickOutside } from 'element-plus'
 const calendar = ref()
 const dateTypeValue = ref('month')
 const popoverRef = ref()
 const titleRef = ref()
+const router = useRouter()
 const options = [
     {
         id: 2,
@@ -135,6 +137,7 @@ const onClickOutside = () => {
 // 跳转到会议页面
 const goMeeting = () => {
     console.log('跳转到会议页面')
+    window.ipc.send('calendar', true)
 }
 </script>
 

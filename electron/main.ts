@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description: electron主进程
  * @Date: 2022-12-27 11:44:25
- * @LastEditTime: 2023-01-10 09:20:18
+ * @LastEditTime: 2023-01-12 17:23:28
  * @LastEditors: 周楠
  */
 import { app, BrowserWindow, Menu } from "electron";
@@ -10,6 +10,7 @@ import { app, BrowserWindow, Menu } from "electron";
 import { createWindow } from "./utils/createWindow";
 import { onNavbar } from "./utils/navbar";
 import { createAppMenu } from './utils/menu';
+import { onCalendar } from "./utils/calendar";
 // 是否开启调试工具
 import { onDevTools } from "./utils/devTools";
 
@@ -19,6 +20,7 @@ app.on("ready", () => {
     // 设置菜单栏
     Menu.setApplicationMenu(createAppMenu());
     onNavbar();
+    onCalendar();
     // 是否开启调试工具
     onDevTools();
     // 通常在 macOS 上，当点击 dock 中的应用程序图标时，如果没有其他打开的窗口，那么程序会重新创建一个窗口。

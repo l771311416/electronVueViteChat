@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:开会
  * @Date: 2023-01-12 17:32:59
- * @LastEditTime: 2023-01-13 18:03:10
+ * @LastEditTime: 2023-01-29 17:45:06
  * @LastEditors: 周楠
 -->
 <template>
@@ -72,7 +72,6 @@ import { ref, reactive, onBeforeMount, } from "vue";
 import type { FormInstance, FormRules } from 'element-plus'
 import bus from '../../utils/bus'
 
-const useStoreMain = useMain()//使用pinina
 const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive({
@@ -153,7 +152,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return
     await formEl.validate((valid, fields) => {
         if (valid) {
-            useStoreMain.setCalendarChoose(ruleForm.name)
+
+
+            window.opener.postMessage(ruleForm.name)
             // 传递参数使用bus传参给 calendar.vue
             // bus.emit('mainHeaderShow',false )
             //

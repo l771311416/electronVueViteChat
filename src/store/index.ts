@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2023-01-13 17:44:59
- * @LastEditTime: 2023-01-13 17:58:01
+ * @LastEditTime: 2023-01-29 15:34:32
  * @LastEditors: 周楠
  */
 import { defineStore } from "pinia" // 定义容器
@@ -27,7 +27,9 @@ export const useMain = defineStore('useStore', {
      * 编辑业务逻辑  类似于methods
      */
     actions: {
-        setCalendarChoose(val:string) {
+        setCalendarChoose(val: string) {
+            console.log(val);
+
             this.calendarChoose=val
 }
     }

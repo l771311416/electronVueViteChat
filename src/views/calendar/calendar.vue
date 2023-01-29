@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:我的日历
  * @Date: 2023-01-06 09:57:53
- * @LastEditTime: 2023-01-13 18:07:07
+ * @LastEditTime: 2023-01-29 17:46:15
  * @LastEditors: 周楠
 -->
 <template>
@@ -77,7 +77,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, reactive, unref, onBeforeMount, onBeforeUnmount } from "vue";
+import { ref, reactive, unref, onBeforeMount, onBeforeUnmount,watch,onUnmounted } from "vue";
 import { useRouter } from 'vue-router'
 import { ClickOutside as vClickOutside } from 'element-plus'
 import {useMain} from '../../store/index';
@@ -101,8 +101,13 @@ const options = [
     }
 ]
 
-let text = ref(useStoreMain.calendarChoose)
-console.log(text.value);
+
+// 监听Meeting组件传来的数据进行回显展示
+window.addEventListener('message', (eventObj) => {
+  console.log(eventObj.data, 'eventObj.data');
+
+})
+
 
 // onBeforeMount(() => {
 
@@ -110,6 +115,10 @@ console.log(text.value);
 onBeforeUnmount(() => {
     bus.off('calendarData', (val) => {
         console.log(val, 'val');
+    })
+    // 关闭window监听
+    window.removeEventListener('message', (eventObj) => {
+        console.log(eventObj.data, 'eventObj.data');
     })
 })
 const calendarChange = (val: any) => {

@@ -28,7 +28,7 @@ exports.createWindow = void 0;
  * @Author: 周楠
  * @Description: electron窗口创建
  * @Date: 2022-12-27 11:45:09
- * @LastEditTime: 2023-01-05 15:40:02
+ * @LastEditTime: 2023-01-13 14:11:10
  * @LastEditors: 周楠
  */
 const electron_1 = require("electron");
@@ -54,7 +54,8 @@ function createWindow() {
         webPreferences: {
             // webSecurity:false,
             // 加载脚本
-            preload: path.join(__dirname, "..", "preload.js")
+            preload: path.join(__dirname, "..", "preload.js"),
+            nodeIntegration: true,
         }
     });
     // 加载调试工具

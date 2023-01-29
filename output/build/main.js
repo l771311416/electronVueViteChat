@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @Author: 周楠
  * @Description: electron主进程
  * @Date: 2022-12-27 11:44:25
- * @LastEditTime: 2023-01-12 17:23:28
+ * @LastEditTime: 2023-01-13 15:58:29
  * @LastEditors: 周楠
  */
 const electron_1 = require("electron");
@@ -15,6 +15,7 @@ const menu_1 = require("./utils/menu");
 const calendar_1 = require("./utils/calendar");
 // 是否开启调试工具
 const devTools_1 = require("./utils/devTools");
+// const remote = require('electron').remote;
 electron_1.app.on("ready", () => {
     (0, createWindow_1.createWindow)(); // 创建窗口
     // 设置菜单栏

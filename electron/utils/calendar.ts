@@ -2,12 +2,12 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2023-01-12 17:12:24
- * @LastEditTime: 2023-01-13 11:53:08
+ * @LastEditTime: 2023-01-13 14:05:13
  * @LastEditors: 周楠
  */
 import { BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
-export function onCalendar() {
+ function onCalendar() {
     ipcMain.on("calendar", (event, val) => {
         //如果val存在打开新窗口
         if (val) {
@@ -42,3 +42,6 @@ export function onCalendar() {
         }
     });
 }
+
+// 导出模块
+export { onCalendar };

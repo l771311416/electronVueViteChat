@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:我的日历
  * @Date: 2023-01-06 09:57:53
- * @LastEditTime: 2023-01-13 09:50:23
+ * @LastEditTime: 2023-01-13 18:07:07
  * @LastEditors: 周楠
 -->
 <template>
@@ -45,7 +45,7 @@
                         class="w-full h-20px leading-20px text-center bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500"
                         v-if="data.isSelected">
 
-                        <span class="text-white text-sm">无标题</span>
+                        <span class="text-white text-sm">{{ text||'无标题' }}</span>
                     </div>
 
                     <!-- 弹出框 -->
@@ -55,14 +55,16 @@
                             <div ref="titleRef" v-click-outside="onClickOutside"
                                 class="w-full h-20px leading-20px text-center bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500"
                                 v-if="data.isSelected">
-                                <span class="text-white text-sm">无标题</span>
+                                <span class="text-white text-sm">{{ text||'无标题' }}</span>
                             </div>
                         </template>
                         <!-- 弹窗内容层 -->
                         <template #default>
                             <div class="demo-rich-conent" style="display: flex; gap: 16px; flex-direction: column">
-                                <div class="hover:bg-slate-50 hover:shadow-lg h-30px leading-30px font-medium"  @click="goMeeting"><span>开 会</span> </div>
-                                <div class="hover:bg-slate-50 hover:shadow-lg h-30px leading-30px font-medium"><span>日 程 </span> </div>
+                                <div class="hover:bg-slate-50 hover:shadow-lg h-30px leading-30px font-medium"
+                                    @click="goMeeting"><span>开 会</span> </div>
+                                <div class="hover:bg-slate-50 hover:shadow-lg h-30px leading-30px font-medium"><span>日 程
+                                    </span> </div>
                             </div>
 
                         </template>
@@ -75,10 +77,13 @@
 </template>
 
 <script setup lang='ts'>
-import { DateType } from './calendar.d.ts'
-import { ref, reactive, unref } from "vue";
-import {useRouter} from 'vue-router'
+import { ref, reactive, unref, onBeforeMount, onBeforeUnmount } from "vue";
+import { useRouter } from 'vue-router'
 import { ClickOutside as vClickOutside } from 'element-plus'
+import {useMain} from '../../store/index';
+import bus from '../../utils/bus'
+
+const useStoreMain = useMain()//使用pinina
 const calendar = ref()
 const dateTypeValue = ref('month')
 const popoverRef = ref()
@@ -95,6 +100,22 @@ const options = [
         label: '年'
     }
 ]
+
+let text = ref(useStoreMain.calendarChoose)
+console.log(text.value);
+
+// onBeforeMount(() => {
+
+// })
+onBeforeUnmount(() => {
+    bus.off('calendarData', (val) => {
+        console.log(val, 'val');
+    })
+})
+const calendarChange = (val: any) => {
+    console.log(val, 'val');
+}
+
 const selectDate = (val: string) => {
 
     calendar.value.selectDate(val)
@@ -137,7 +158,8 @@ const onClickOutside = () => {
 // 跳转到会议页面
 const goMeeting = () => {
     console.log('跳转到会议页面')
-    window.ipc.send('calendar', true)
+    // window.ipc.send('calendar', true)
+    window.open('http://localhost:3920/#/meeting')
 }
 </script>
 

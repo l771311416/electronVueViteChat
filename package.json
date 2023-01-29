@@ -22,6 +22,7 @@
         "@vueuse/electron": "^9.9.0",
         "element-plus": "^2.2.27",
         "mitt": "^3.0.0",
+        "pinia": "^2.0.28",
         "tree-node-cli": "^1.6.0",
         "vue": "^3.2.45",
         "vue-router": "^4.1.6"

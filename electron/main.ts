@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description: electron主进程
  * @Date: 2022-12-27 11:44:25
- * @LastEditTime: 2023-01-12 17:23:28
+ * @LastEditTime: 2023-01-13 15:58:29
  * @LastEditors: 周楠
  */
 import { app, BrowserWindow, Menu } from "electron";
@@ -13,7 +13,7 @@ import { createAppMenu } from './utils/menu';
 import { onCalendar } from "./utils/calendar";
 // 是否开启调试工具
 import { onDevTools } from "./utils/devTools";
-
+// const remote = require('electron').remote;
 app.on("ready", () => {
 
     createWindow(); // 创建窗口

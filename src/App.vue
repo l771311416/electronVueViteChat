@@ -36,7 +36,9 @@ onBeforeUnmount(() => {
   bus.off('mainHeaderShow',settingMain)
 })
 
-const settingMain=(msg:any)=>{
+const settingMain = (msg: any) => {
+  console.log(msg, 'msg');
+
   mainHeaderShow.value = msg
 }
 </script>

@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2022-12-27 10:33:58
- * @LastEditTime: 2023-01-04 14:37:04
+ * @LastEditTime: 2023-01-30 17:49:17
  * @LastEditors: 周楠
 -->
 #  成功启动说明
@@ -130,3 +130,10 @@ start:
    这是一条错误消息，意思是在你的 package.json 文件中，你将 electron-builder 包放在了 dependencies 节点中，但是它只能在 devDependencies 节点中使用。
    放入devDependencies中，重新执行 `npm i`
 
+# 关于书写过程中的一些问题
+   ## 关于src本地引入
+   在img引入本地资源时图片加载不出来，在webpack中使用require进行解决，但是在vite中不存在require，后续查阅文档，使用类似`new URL('../../static/testChat2.jpg', import.meta.url).href`的方法进行引入静态资源
+
+   ## 关于父子窗口的通信问题
+   父子窗口的通信（window.open进行打开）相当于两个页面之间的通信，但是并不太一样，最开始使用传递到主进程，然后在通过主进程传递到父级窗口，但是这种方法过于麻烦，后续尝试使用pinia进行数据通信，但是发现子窗口的pinia变化但是父窗口的pinia并没有发生改变，导致无法监听到值得变化。放弃
+   后续使用eventLister的方法进行传递值

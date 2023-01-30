@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:开会
  * @Date: 2023-01-12 17:32:59
- * @LastEditTime: 2023-01-29 17:45:06
+ * @LastEditTime: 2023-01-30 09:32:22
  * @LastEditors: 周楠
 -->
 <template>
@@ -158,7 +158,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
             // 传递参数使用bus传参给 calendar.vue
             // bus.emit('mainHeaderShow',false )
             //
-            // window.close()
+            window.close()
         } else {
             console.log('error submit!', fields)
         }

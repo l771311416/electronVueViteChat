@@ -2,11 +2,11 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2022-12-28 14:39:55
- * @LastEditTime: 2023-01-09 18:11:16
+ * @LastEditTime: 2023-01-30 14:29:00
  * @LastEditors: 周楠
 -->
 <template>
-    <div class=" bg-ele-white  h-30px flex border-b">
+    <div class=" bg-ele-white  h-30px flex flex-row-reverse ">
         <!-- 窗口基础功能 ：关闭 最小化，最大化 -->
         <div class="w-100px   flex justify-around items-center my-5px border-r">
             <el-icon  size="18px" @click="navBar('close')">

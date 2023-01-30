@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2022-12-27 10:33:58
- * @LastEditTime: 2023-01-13 11:26:19
+ * @LastEditTime: 2023-01-30 14:54:37
  * @LastEditors: 周楠
 -->
 
@@ -14,9 +14,10 @@
 
 
     <!-- 主侧边栏 -->
-    <div class="flex-1 h-full">
-      <mainHeader v-if="mainHeaderShow"/>
-      <router-view />
+    <div class="flex-1 flex">
+      <router-view class="flex-1" />
+      <mainHeader v-if="mainHeaderShow" class=""/>
+
     </div>
   </div>
 </template>

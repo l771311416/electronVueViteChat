@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:我的日历
  * @Date: 2023-01-06 09:57:53
- * @LastEditTime: 2023-01-29 17:46:15
+ * @LastEditTime: 2023-01-30 09:42:53
  * @LastEditors: 周楠
 -->
 <template>
@@ -45,7 +45,7 @@
                         class="w-full h-20px leading-20px text-center bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500"
                         v-if="data.isSelected">
 
-                        <span class="text-white text-sm">{{ text||'无标题' }}</span>
+                        <span class="text-white text-xs">{{ text|| '无标题' }}</span>
                     </div>
 
                     <!-- 弹出框 -->
@@ -55,7 +55,7 @@
                             <div ref="titleRef" v-click-outside="onClickOutside"
                                 class="w-full h-20px leading-20px text-center bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500"
                                 v-if="data.isSelected">
-                                <span class="text-white text-sm">{{ text||'无标题' }}</span>
+                                <span class="text-white text-sm">{{ text|| '无标题' }}</span>
                             </div>
                         </template>
                         <!-- 弹窗内容层 -->
@@ -77,17 +77,16 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, reactive, unref, onBeforeMount, onBeforeUnmount,watch,onUnmounted } from "vue";
+import { ref, reactive, unref, onBeforeMount, onBeforeUnmount, watch, onUnmounted } from "vue";
 import { useRouter } from 'vue-router'
 import { ClickOutside as vClickOutside } from 'element-plus'
-import {useMain} from '../../store/index';
 import bus from '../../utils/bus'
 
-const useStoreMain = useMain()//使用pinina
 const calendar = ref()
 const dateTypeValue = ref('month')
 const popoverRef = ref()
 const titleRef = ref()
+const text = ref('')
 const router = useRouter()
 const options = [
     {
@@ -104,14 +103,15 @@ const options = [
 
 // 监听Meeting组件传来的数据进行回显展示
 window.addEventListener('message', (eventObj) => {
-  console.log(eventObj.data, 'eventObj.data');
+    console.log(eventObj.data, 'eventObj.data');
+    text.value = eventObj.data
 
 })
 
 
-// onBeforeMount(() => {
 
-// })
+
+// 卸载监听
 onBeforeUnmount(() => {
     bus.off('calendarData', (val) => {
         console.log(val, 'val');

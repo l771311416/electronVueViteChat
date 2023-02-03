@@ -28,46 +28,46 @@ exports.createWindow = void 0;
  * @Author: 周楠
  * @Description: electron窗口创建
  * @Date: 2022-12-27 11:45:09
- * @LastEditTime: 2023-01-13 14:11:10
+ * @LastEditTime: 2023-02-02 09:26:46
  * @LastEditors: 周楠
  */
 const electron_1 = require("electron");
 const path = __importStar(require("path"));
 /**
-* packages.json,script中通过cross-env NODE_ENV=production设置的环境变量
-* 'production'|'development'
-*/
+ * packages.json,script中通过cross-env NODE_ENV=production设置的环境变量
+ * 'production'|'development'
+ */
 const NODE_ENV = process.env.NODE_ENV;
 /** 创建窗口方法 */
 function createWindow() {
     // 生成窗口实例
     const Window = new electron_1.BrowserWindow({
-        minWidth: 1120,
-        minHeight: 645,
-        width: 1200,
-        height: 800,
+        minWidth: 600,
+        minHeight: 600,
+        width: 900,
+        height: 720,
         frame: false,
         transparent: true,
         hasShadow: true,
         show: false,
-        resizable: false,
+        resizable: true,
         webPreferences: {
             // webSecurity:false,
             // 加载脚本
-            preload: path.join(__dirname, "..", "preload.js"),
+            preload: path.join(__dirname, '..', 'preload.js'),
             nodeIntegration: true,
-        }
+        },
     });
     // 加载调试工具
-    NODE_ENV === "development" && Window.webContents.openDevTools();
+    NODE_ENV === 'development' && Window.webContents.openDevTools();
     // 由优雅写法
     // 启动窗口时隐藏,直到渲染进程加载完成「ready-to-show 监听事件」 再显示窗口,防止加载时闪烁
-    Window.once("ready-to-show", () => {
+    Window.once('ready-to-show', () => {
         Window.show(); // 显示窗口
     });
     // * 主窗口加载外部链接
     // 开发环境,加载vite启动的vue项目地址
-    if (NODE_ENV === "development")
-        Window.loadURL("http://localhost:3920/");
+    if (NODE_ENV === 'development')
+        Window.loadURL('http://localhost:3920/');
 }
 exports.createWindow = createWindow;

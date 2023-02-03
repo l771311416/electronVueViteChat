@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2022-12-28 14:44:59
- * @LastEditTime: 2023-01-30 14:56:55
+ * @LastEditTime: 2023-01-31 16:52:49
  * @LastEditors: 周楠
  */
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
         '20px': '20px',
         '30px': '30px',
         '40px': '40px',
-        '42px':'42px',
+        '42px': '42px',
         '50px': '50px',
         '52px': '52px',
         '60px': '60px',
@@ -34,7 +34,7 @@ module.exports = {
         '180px': '180px',
         '190px': '190px',
         '200px': '200px',
-        '210px':'210px',
+        '210px': '210px',
         '220px': '220px',
         '230px': '230px',
         '240px': '240px',
@@ -65,16 +65,17 @@ module.exports = {
         '480px': '480px',
         '490px': '490px',
         '500px': '500px',
-
+        '600px': '600px',
       },
       height: {
         '10px': '10px',
         '20px': '20px',
         '30px': '30px',
         '40px': '40px',
-        '42px':'42px',
+        '42px': '42px',
         '50px': '50px',
         '60px': '60px',
+        '69px': '69px',
         '70px': '70px',
         '80px': '80px',
         '90px': '90px',
@@ -89,7 +90,7 @@ module.exports = {
         '180px': '180px',
         '190px': '190px',
         '200px': '200px',
-        '210px':'210px',
+        '210px': '210px',
         '220px': '220px',
         '230px': '230px',
         '240px': '240px',
@@ -120,6 +121,7 @@ module.exports = {
         '480px': '480px',
         '490px': '490px',
         '500px': '500px',
+        '600px': '600px',
       },
       padding: {
         '5px': '5px',
@@ -170,8 +172,8 @@ module.exports = {
         '190px': '190px',
         '200px': '200px',
       },
-      lineHeight:{
-        '10px':'10px',
+      lineHeight: {
+        '10px': '10px',
         '20px': '20px',
         '30px': '30px',
       },
@@ -181,7 +183,7 @@ module.exports = {
         'ele-black': '#333',
         'ele-gray': '#ebebeb',
         'ele-black-sider': '#2e2e2e',
-        'ele-gray-hight':'#cccccd'
+        'ele-gray-hight': '#cccccd',
       },
     },
   },
@@ -189,4 +191,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};

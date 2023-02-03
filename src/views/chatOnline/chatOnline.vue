@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:聊天
  * @Date: 2023-01-05 15:11:24
- * @LastEditTime: 2023-01-30 17:44:53
+ * @LastEditTime: 2023-02-01 16:50:57
  * @LastEditors: 周楠
 -->
 <template>
@@ -25,6 +25,7 @@
         <div
           class="h-70px bg-ele-gray flex items-center"
           v-for="(item, index) in chatData"
+          :key="index"
         >
           <!-- 头像 -->
           <div class="w-50px h-50px ml-10px">
@@ -51,11 +52,16 @@
         </div>
       </div>
     </div>
-    <div class="h-full">聊天窗口</div>
+
+    <!-- 聊天窗口 -->
+    <div class="h-full flex-1">
+      <ChatMessage></ChatMessage>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+  import ChatMessage from './chatMessage/chatMessage.vue';
   import { ref, reactive } from 'vue';
   const input = ref('');
 
@@ -75,7 +81,7 @@
       avatar: new URL('../../static/testChat.jpg', import.meta.url).href,
     },
     {
-      name: '鸡蛋泡奶',
+      name: '驴蛋子',
       lastChatTime: '16:18',
       cancelNotice: false,
       content: 'OK',

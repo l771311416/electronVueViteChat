@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description: electron窗口创建
  * @Date: 2022-12-27 11:45:09
- * @LastEditTime: 2023-02-02 09:26:46
+ * @LastEditTime: 2023-02-03 10:17:50
  * @LastEditors: 周楠
  */
 import { BrowserWindow } from 'electron';
@@ -16,9 +16,9 @@ const NODE_ENV = process.env.NODE_ENV;
 function createWindow() {
   // 生成窗口实例
   const Window = new BrowserWindow({
-    minWidth: 600,
+    minWidth: 914,
     minHeight: 600,
-    width: 900, // * 指定启动app时的默认窗口尺寸
+    width: 1000, // * 指定启动app时的默认窗口尺寸
     height: 720, // * 指定启动app时的默认窗口尺寸
     frame: false, // * app边框(包括关闭,全屏,最小化按钮的导航栏) @false: 隐藏
     transparent: true, // * app 背景透明

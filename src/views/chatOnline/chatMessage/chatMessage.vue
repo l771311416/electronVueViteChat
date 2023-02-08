@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2023-01-31 14:23:05
- * @LastEditTime: 2023-02-03 09:46:45
+ * @LastEditTime: 2023-02-08 16:49:49
  * @LastEditors: 周楠
 -->
 <template>
@@ -14,10 +14,17 @@
     >
 
     <!-- 聊天内容层 -->
-    <div class="flex-1">
+    <el-scrollbar class="flex-1">
       <!--聊天需要分成两个对象，自己和别人 -->
-      <div class="">
-        <div class="left w-full flex pl-10px">
+      <div
+        class=""
+        v-for="(item, index) in chatMessage"
+        :key="index"
+      >
+        <div
+          class="left flex pl-10px"
+          v-if="item.from === 3944"
+        >
           <!-- 对话人 -->
           <div class="w-600px h-60px flex items-center">
             <!-- 头像 -->
@@ -30,30 +37,30 @@
 
             <!-- 对话信息 -->
             <div class="m-5px">
-              <div class="bg-white rounded p-5px mt-5px">2222</div>
+              <div class="bg-white rounded p-5px mt-5px">{{ item.text }}</div>
             </div>
           </div>
         </div>
 
-        <div class="right w-full flex justify-end pr-10px">
+        <div class="right flex justify-end pr-10px" v-if="item.from === 'self'">
           <!-- 自己 -->
           <!-- 对话信息 -->
           <div class="m-5px">
-            <div class="bg-white rounded p-5px mt-5px">1234</div>
+            <div class="bg-white rounded p-5px mt-5px">{{ item.text }}</div>
           </div>
           <!-- 头像 -->
           <div class="w-40px h-40px">
             <img
-              src="../../../static/testChat.jpg"
+              src="../../../static/testChat2.jpg"
               class="w-full h-full block"
             />
           </div>
         </div>
       </div>
-    </div>
+    </el-scrollbar>
 
     <!-- 输入框 -->
-    <div class="h-200px w-full border-t">
+    <div class="h-200px border-t">
       <!-- 工具栏 -->
       <div>
         <div class="chatIcon">
@@ -100,21 +107,14 @@
         </div>
       </div>
       <!-- 输入框 -->
-      <div>
-        <!-- <el-input
-          v-model="chatMsg"
-          class="chatText"
-          resize="none"
-          type="textarea"
-          id="textarea"
-          rows="5"
-          @keyup.enter.native="sendInfo"
-        ></el-input> -->
+      <div class="h-150px">
         <div
           contenteditable="true"
           ref="inputBox"
           id="inputBox"
-          class="input-box flex flex-wrap text-sm font-medium"
+          class="input-box flex flex-wrap text-sm font-medium w-full h-full"
+          @click="getRange"
+          v-on:keyup.enter="sendMsg"
         ></div>
       </div>
     </div>
@@ -141,10 +141,199 @@
     display?: string;
   }
 
-  const instance = getCurrentInstance();
   const faceList = reactive([]);
   const chatMsg = ref('');
   const rangeOfInputBox = ref();
+  const myMsg = ref('1111');
+
+  const chatMessage = reactive([
+    {
+      type: 'text',
+      text: '1111',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '2222',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '3333',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '4444',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '5555',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '6666',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '7777',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '8888',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '9999',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '0000',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '1111',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '2222',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '3333',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '4444',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '5555',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '6666',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '7777',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '8888',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '9999',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '0000',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '1111',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '2222',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '3333',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '4444',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '5555',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '6666',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '7777',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '8888',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '9999',
+      from: 3944,
+      to: 'self',
+    },
+    {
+      type: 'text',
+      text: '0000',
+      from: 'self',
+      to: 3944,
+    },
+    {
+      type: 'text',
+      text: '1111',
+      from: 3944,
+      to: 'self',
+    },
+  ]);
   // const
 
   document.onselectionchange = () => {
@@ -163,6 +352,8 @@
   onMounted(() => {
     useData();
   });
+
+  // 获取表情包
   const useData = () => {
     const emojiData: Emoji[] = emoji.map((item: Emoji) => {
       return {
@@ -215,7 +406,32 @@
     // console.log(proxy?.$refs);
     const inputBox: any = proxy?.$refs.inputBox;
     inputBox.innerHTML += img;
+
+    if (!inputBox.hasfocus) {
+      inputBox.focus();
+    }
+
     // console.log(proxy?.$refs.inputBox.innerHTML);
+  };
+
+  // 点击输入框的时候获取光标，以及光标位置
+  const getRange = () => {
+    let selection: any = document.getSelection();
+    let inputBox = document.getElementById('inputBox');
+    if (selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      console.log(inputBox, 'inputBox');
+
+      if (inputBox?.contains(range.commonAncestorContainer)) {
+        // console.log(range);
+        rangeOfInputBox.value = range;
+      }
+    }
+  };
+
+  // 点击enter发送信息
+  const sendMsg = () => {
+    console.log('enter');
   };
 </script>
 

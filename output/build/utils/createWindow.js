@@ -28,7 +28,7 @@ exports.createWindow = void 0;
  * @Author: 周楠
  * @Description: electron窗口创建
  * @Date: 2022-12-27 11:45:09
- * @LastEditTime: 2023-02-02 09:26:46
+ * @LastEditTime: 2023-02-03 10:17:50
  * @LastEditors: 周楠
  */
 const electron_1 = require("electron");
@@ -42,9 +42,9 @@ const NODE_ENV = process.env.NODE_ENV;
 function createWindow() {
     // 生成窗口实例
     const Window = new electron_1.BrowserWindow({
-        minWidth: 600,
+        minWidth: 914,
         minHeight: 600,
-        width: 900,
+        width: 1000,
         height: 720,
         frame: false,
         transparent: true,

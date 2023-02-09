@@ -2,7 +2,7 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2023-01-31 14:23:05
- * @LastEditTime: 2023-02-08 16:49:49
+ * @LastEditTime: 2023-02-09 18:06:31
  * @LastEditors: 周楠
 -->
 <template>
@@ -42,7 +42,10 @@
           </div>
         </div>
 
-        <div class="right flex justify-end pr-10px" v-if="item.from === 'self'">
+        <div
+          class="right flex justify-end pr-10px"
+          v-if="item.from === 'self'"
+        >
           <!-- 自己 -->
           <!-- 对话信息 -->
           <div class="m-5px">
@@ -108,14 +111,20 @@
       </div>
       <!-- 输入框 -->
       <div class="h-150px">
-        <div
+        <!-- <div
           contenteditable="true"
           ref="inputBox"
           id="inputBox"
           class="input-box flex flex-wrap text-sm font-medium w-full h-full"
           @click="getRange"
+          v-html="chatMsg"
           v-on:keyup.enter="sendMsg"
-        ></div>
+        ></div> -->
+        <MessageInput
+          v-model="chatMsg"
+          :sendEmoji="sendEmoji"
+          class="input-box flex flex-wrap text-sm font-medium w-full h-full"
+        ></MessageInput>
       </div>
     </div>
   </div>
@@ -128,7 +137,9 @@
     onMounted,
     getCurrentInstance,
     ComponentInternalInstance,
+    provide,
   } from 'vue';
+  import MessageInput from './messageInput.vue';
   // const appData = new URL('../static/emoji.json', import.meta.url).href;
   import emoji from '../../../static/emoji';
   interface Emoji {
@@ -142,10 +153,9 @@
   }
 
   const faceList = reactive([]);
-  const chatMsg = ref('');
+  const chatMsg = ref('测试');
   const rangeOfInputBox = ref();
-  const myMsg = ref('1111');
-
+  const sendEmoji = ref('');
   const chatMessage = reactive([
     {
       type: 'text',
@@ -365,37 +375,16 @@
         ).href,
       };
     });
-    console.log(emojiData, 'emojiData');
+    // console.log(emojiData, 'emojiData');
     Object.assign(faceList, emojiData);
     // faceList.push(...emojiData)
   };
 
   // enter发送消息
-  const sendInfo = () => {
-    if (chatMsg.value !== '') {
-    } else {
-      return console.log('请输入内容');
-    }
-    console.log(chatMsg.value);
-  };
+
   const { proxy } = getCurrentInstance() as ComponentInternalInstance;
   // 获取emoji表情
   const getEmo = (index: number) => {
-    // let emojiEl = document.createElement('img');
-    // emojiEl.src = `../../../static/face/${faceList[index].src}.png`;
-    // let inputBox = document.getElementById('inputBox');
-    // if (!rangeOfInputBox) {
-    //   rangeOfInputBox = new Range();
-    //   rangeOfInputBox.selectNodeContents(inputBox);
-    // }
-    // if (rangeOfInputBox.collapsed) {
-    //   rangeOfInputBox.insertNode(emojiEl);
-    // } else {
-    //   // rangeOfInputBox.deleteContents();
-    //   rangeOfInputBox.insertNode(emojiEl);
-    // }
-    // //折叠光标
-    // rangeOfInputBox.collapse(false);
     let setImg = new URL(
       `../../../static/face/${faceList[index].src}.png`,
       import.meta.url
@@ -403,36 +392,38 @@
     const img = `<img src="${setImg}" class="w-20px h-20px block">`;
     document.execCommand('insertHTML', false, img);
 
-    // console.log(proxy?.$refs);
-    const inputBox: any = proxy?.$refs.inputBox;
-    inputBox.innerHTML += img;
+    // const inputBox: any = proxy?.$refs.inputBox;
+    sendEmoji.value = setImg;
+    // inputBox.innerHTML += img;
 
-    if (!inputBox.hasfocus) {
-      inputBox.focus();
-    }
-
-    // console.log(proxy?.$refs.inputBox.innerHTML);
+    // if (!inputBox.hasfocus) {
+    //   inputBox.focus();
+    // }
   };
-
+  provide('getEmo', sendEmoji.value);
   // 点击输入框的时候获取光标，以及光标位置
   const getRange = () => {
     let selection: any = document.getSelection();
     let inputBox = document.getElementById('inputBox');
     if (selection.rangeCount > 0) {
       const range = selection.getRangeAt(0);
-      console.log(inputBox, 'inputBox');
+      // console.log(inputBox, 'inputBox');
 
       if (inputBox?.contains(range.commonAncestorContainer)) {
-        // console.log(range);
         rangeOfInputBox.value = range;
       }
     }
   };
 
   // 点击enter发送信息
-  const sendMsg = () => {
-    console.log('enter');
-  };
+  // const sendMsg = () => {
+  //   chatMessage.push({
+  //     type: 'text',
+  //     text: chatMsg.value,
+  //     from: 'self',
+  //     to: 3944,
+  //   });
+  // };
 </script>
 
 <style scoped>

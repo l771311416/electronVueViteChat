@@ -2,14 +2,14 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2022-12-27 10:33:58
- * @LastEditTime: 2023-02-03 09:48:49
+ * @LastEditTime: 2023-03-06 15:11:42
  * @LastEditors: 周楠
 -->
 
 <template>
   <div
     id="app"
-    class="h-full flex"
+    class="h-full flex bg-ele-white"
   >
     <!-- 侧边栏总组件 -->
     <navSider v-if="mainHeaderShow" />

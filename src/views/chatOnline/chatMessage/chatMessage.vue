@@ -2,7 +2,14 @@
  * @Author: 周楠
  * @Description:
  * @Date: 2023-01-31 14:23:05
- * @LastEditTime: 2023-02-09 18:06:31
+ * @LastEditTime: 2023-03-08 15:49:14
+ * @LastEditors: 周楠
+-->
+<!--
+ * @Author: 周楠
+ * @Description:
+ * @Date: 2023-01-31 14:23:05
+ * @LastEditTime: 2023-03-08 15:05:24
  * @LastEditors: 周楠
 -->
 <template>
@@ -14,10 +21,12 @@
     >
 
     <!-- 聊天内容层 -->
-    <el-scrollbar class="flex-1">
+    <el-scrollbar
+      class="flex-1"
+      ref="chatBox"
+    >
       <!--聊天需要分成两个对象，自己和别人 -->
       <div
-        class=""
         v-for="(item, index) in chatMessage"
         :key="index"
       >
@@ -61,7 +70,6 @@
         </div>
       </div>
     </el-scrollbar>
-
     <!-- 输入框 -->
     <div class="h-200px border-t">
       <!-- 工具栏 -->
@@ -124,6 +132,7 @@
           v-model="chatMsg"
           :sendEmoji="sendEmoji"
           class="input-box flex flex-wrap text-sm font-medium w-full h-full"
+          @sendMsg="sendMsg"
         ></MessageInput>
       </div>
     </div>
@@ -344,6 +353,10 @@
       to: 'self',
     },
   ]);
+  // 滚动条位置
+  const chatBox = ref();
+  //
+  // const chatBoxWrapper = ref();
   // const
 
   document.onselectionchange = () => {
@@ -360,6 +373,10 @@
   };
 
   onMounted(() => {
+    //
+    chatBox.value.setScrollTop(
+      chatBox.value.$el.querySelector('.el-scrollbar__view').scrollHeight
+    );
     useData();
   });
 
@@ -375,55 +392,53 @@
         ).href,
       };
     });
-    // console.log(emojiData, 'emojiData');
     Object.assign(faceList, emojiData);
-    // faceList.push(...emojiData)
   };
 
-  // enter发送消息
-
-  const { proxy } = getCurrentInstance() as ComponentInternalInstance;
   // 获取emoji表情
   const getEmo = (index: number) => {
     let setImg = new URL(
       `../../../static/face/${faceList[index].src}.png`,
       import.meta.url
     ).href;
-    const img = `<img src="${setImg}" class="w-20px h-20px block">`;
-    document.execCommand('insertHTML', false, img);
-
-    // const inputBox: any = proxy?.$refs.inputBox;
     sendEmoji.value = setImg;
-    // inputBox.innerHTML += img;
-
-    // if (!inputBox.hasfocus) {
-    //   inputBox.focus();
-    // }
+    console.log('测试发送次数');
   };
   provide('getEmo', sendEmoji.value);
   // 点击输入框的时候获取光标，以及光标位置
   const getRange = () => {
-    let selection: any = document.getSelection();
-    let inputBox = document.getElementById('inputBox');
-    if (selection.rangeCount > 0) {
-      const range = selection.getRangeAt(0);
-      // console.log(inputBox, 'inputBox');
-
-      if (inputBox?.contains(range.commonAncestorContainer)) {
-        rangeOfInputBox.value = range;
-      }
-    }
+    //   let selection: any = document.getSelection();
+    //   let inputBox = document.getElementById('inputBox');
+    //   if (selection.rangeCount > 0) {
+    //     const range = selection.getRangeAt(0);
+    //     // console.log(inputBox, 'inputBox');
+    //     if (inputBox?.contains(range.commonAncestorContainer)) {
+    //       rangeOfInputBox.value = range;
+    //     }
+    //   }
   };
 
   // 点击enter发送信息
-  // const sendMsg = () => {
-  //   chatMessage.push({
-  //     type: 'text',
-  //     text: chatMsg.value,
-  //     from: 'self',
-  //     to: 3944,
-  //   });
-  // };
+  const sendMsg = (val) => {
+    type val = {
+      text: string;
+      from: string;
+      to: number;
+      type: string;
+    };
+    // 发送信息
+    chatMessage.push({
+      type: 'text',
+      text: val.text,
+      from: 'self',
+      to: 3944,
+    });
+
+    // 每次发送信息的时候，将滚动条滚动到最底部
+    chatBox.value.setScrollTop(
+      chatBox.value.$el.querySelector('.el-scrollbar__view').scrollHeight
+    );
+  };
 </script>
 
 <style scoped>

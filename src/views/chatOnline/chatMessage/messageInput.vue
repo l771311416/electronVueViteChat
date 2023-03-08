@@ -1,10 +1,17 @@
+<!--
+ * @Author: 周楠
+ * @Description:
+ * @Date: 2023-02-08 17:39:25
+ * @LastEditTime: 2023-03-08 15:45:26
+ * @LastEditors: 周楠
+-->
 <template>
   <div
     ref="inputBox"
     id="inputBox"
     class="editor"
     contenteditable="true"
-    v-html="msg"
+    v-html="props.modelValue"
     @input="handleInput"
     @click="getRange"
     v-on:keyup.enter="sendMsg"
@@ -22,40 +29,69 @@
     inject,
     watchEffect,
     toRefs,
+    nextTick,
+    defineProps,
   } from 'vue';
-  const props = defineProps(['modelValue', 'sendEmoji']);
+  // const props = defineProps(['modelValue', 'sendEmoji']);
+  const props = defineProps({
+    modelValue: {
+      type: String,
+      default: '',
+    },
+    sendEmoji: {
+      type: String,
+      default: '',
+    },
+  });
 
-  //   defineProps(['modelValue', 'sendEmoji']);
-  let emoji = ref(props.sendEmoji);
-  console.log('emoji', emoji);
-
-  const msg = ref(props.modelValue);
-
-  //   const emoji = ref(props.sendEmoji);
-  //   console.log(emoji.value);
-
-  const emit = defineEmits(['update:modelValue']);
+  const emit = defineEmits(['update:modelValue', 'sendMsg']);
   const isChange = ref(true);
   const inputBox = ref();
 
-  //   watch()
-
-  const handleInput = () => {
-    emit('update:modelValue', inputBox.value.innerText);
-  };
-
-  // 点击输入框的时候获取光标，以及光标位置
-  const getRange = () => {
-    let selection: any = document.getSelection();
-    let inputBox = document.getElementById('inputBox');
-    if (selection.rangeCount > 0) {
-      const range = selection.getRangeAt(0);
-      // console.log(inputBox, 'inputBox');
-
-      if (inputBox?.contains(range.commonAncestorContainer)) {
-        // rangeOfInputBox.value = range;
+  // 监听props.sendEmoji 一旦有值就插入到输入框中
+  watch(
+    () => props.sendEmoji,
+    (val) => {
+      if (val) {
+        emojiInsert();
       }
     }
+  );
+
+  const handleInput = (): void => {
+    emit('update:modelValue', inputBox.value.innerText);
+  };
+  const { proxy } = getCurrentInstance() as ComponentInternalInstance;
+  // emoji表情插入输入框
+  const emojiInsert = (emoji?: string) => {
+    const img = `<img src="${props.sendEmoji}" class="w-20px h-20px block">`;
+    document.execCommand('insertHTML', false, img);
+
+    const inputBox: any = proxy?.$refs.inputBox;
+    inputBox.innerHTML += img;
+
+    if (!inputBox.hasfocus) {
+      inputBox.focus();
+      window.getSelection().collapseToEnd();
+    }
+  };
+  // 点击输入框的时候获取光标，以及光标位置
+  const getRange = () => {
+    // console.log(window.getSelection, 'window.getSelection');
+    // const inputBox: any = proxy?.$refs.inputBox;
+    // let selection: any = window.getSelection();
+    // nextTick(() => {
+    //   // selection.selectAllChildren(inputBox); //range 选择obj下所有子内容
+    //   // selection.collapseToEnd(); //光标移至最后
+    // });
+    // let inputBox = document.getElementById('inputBox');
+    // if (selection.rangeCount > 0) {
+    //   const range = selection.getRangeAt(0);
+    //   // console.log(inputBox, 'inputBox');
+    //   if (inputBox?.contains(range.commonAncestorContainer)) {
+    //     // rangeOfInputBox.value = range;
+    //   }
+    // }
   };
 
   const sendMsg = () => {
@@ -65,7 +101,12 @@
     //   from: 'self',
     //   to: 3944,
     // });
-    // emit()
+    emit('sendMsg', {
+      type: 'text',
+      text: props.modelValue,
+      from: 'self',
+      to: 3944,
+    });
   };
 </script>
 <style lang="scss">
